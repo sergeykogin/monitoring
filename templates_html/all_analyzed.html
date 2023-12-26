@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Анализ в ВК
+{% endblock %}
+
+{% block body %}
+    <script type="text/javascript" language="javascript">
+    $(document).ready(function() {
+   $("#dt-table").DataTable();
+    } );
+    </script>
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-4 ml-3 mr-3">
+            <h1>Выгрузить список для анализа</h1>
+            <form name='resetLayoutForm' method='POST' enctype="multipart/form-data">
+                <label for="from_date">Дата прибытия с:</label>
+                <input type="date" id="from_date" name="from_date" class="form-control">
+                <input type="submit" name="export_list" class="btn btn-success" value="Экспортировать">
+            </form>
+            <br>
+        </div>
+        <div class="col-md-4 ml-3 mr-3">
+            <h1>Добавить нарушителей в "Вконтакте"</h1>
+            <form name='resetLayoutForm' method='POST' enctype="multipart/form-data">
+                <input type="file" name="file_vk">
+                <input type="submit" name="add_violator_vk" class="btn btn-success" value="Импорт">
+            </form>
+        </div>
+        <div class="col-md-4 ml-3 mr-3">
+            <h1>Добавить нарушителей в "Одноклассники"</h1>
+            <form name='resetLayoutForm' method='POST' enctype="multipart/form-data">
+                <input type="file" name="file_ok">
+                <input type="submit" name="add_violator_ok" class="btn btn-success" value="Импорт">
+            </form>
+        </div>
+    </div>
+</div>
+<div class="container mt-5">
+<h1>Все анализируемые</h1>
+  <table id="dt-table" class="display">
+    <thead>
+      <tr>
+        <th>Личный номер</th>
+        <th>Фамилия</th>
+        <th>Имя</th>
+        <th>Дата рождения</th>
+		<th>Дата прибытия</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for el in ls %}
+      <tr>
+        <td>{{el.self_number}}</td>
+        <td>{{el.surname}}</td>
+        <td>{{el.name}}</td>
+        <td>{{el.date_of_birth}}</td>
+		<td>{{el.arrival_date}}</td>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+<style>
+    h1 {
+        font-size: 24px; /* Измените значение по вашему усмотрению */
+    }
+</style>
+{% endblock %}

@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Добавление в БД
+{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+        <div class="form-group">
+            <h1>1. Обработка штата</h1>
+			<p>Выберите файл со штатом, после нажатия кнопки "Обработать" будет создан новый файл, подготовленный для добавления данных в базу</p>
+            <form name='resetLayoutForm' method='POST' enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="from_date">Дата прибытия с:</label>
+                    <input type="date" id="from_date" name="from_date" class="form-control">
+					<p>
+                </div>
+                <div class="form-group">
+					<p>
+                    <label for="file_parsing">Выберите файл:</label>
+                    <input type="file" name="input_file_parsing" id="file_parsing">
+                </div>
+                <button type="submit" name="btn_parsing" class="btn btn-primary">Обработать</button>
+            </form>
+			{% if message %}
+				<p style="font-weight: bold;">{{ message }}</p>
+			{% endif %}
+        </div>
+
+        <div class="form-group">
+            <h1>2. Добавление л/с в базу данных</h1>
+					<p>	Выберите файл (сгенерированный в пункте 1, либо заполненный вручную), ждесь нужно обращать внимание на формализацию данных и кодировку, 
+						в случае, если нарушить формат, может произойти непредвиденная ошибка. 
+						После нажатия кнопки "Добавить в БД", данные из выбранного файла будут добавлены</p>
+            <form name='resetLayoutForm' method='POST' enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="file_add_bd">Выберите файл:</label>
+                    <input type="file" name="input_file" id="file_add_bd">
+					<p>
+                </div>
+                <button type="submit" name="btn_add_bd" class="btn btn-success">Добавить в БД</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}

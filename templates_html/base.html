@@ -1,0 +1,45 @@
+<!doctype html>
+<style>
+    .nav-container {
+        display: flex;
+        align-items: center;
+    }
+
+    .nav-link:hover {
+        background-color: #000000;
+        color: #ffffff !important; /* Белый цвет текста при наведении */
+        text-decoration: none !important; /* Отключение подчеркивания при наведении */
+    }
+</style>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap-5.3.2-dist/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='cdn.datatables.net/1.13.8/css/jquery.dataTables.min.css') }}">
+    <script type="text/javascript" charset="utf8" src="{{ url_for('static', filename='code.jquery.com/jquery-3.7.1.js') }}"></script>
+    <script type="text/javascript" charset="utf8" src="{{ url_for('static', filename='cdn.datatables.net/1.13.8/js/dataTables.dataTables.min.js') }}"></script>
+
+
+
+    <title>{% block title %}{% endblock %}</title>
+</head>
+<body>
+    <header class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm sticky-top">
+        <p class="h4 my-0 me-md-auto fw-normal">OSINT tool</p>
+        <nav class="my-2 my-md-0 me-md-3 nav-container">
+            <a class="nav-link rounded-2 p-2 text-dark" href="/">Главная</a>
+            <a class="nav-link rounded-2 p-2 text-dark" href="/add_to_bd">Добавить в БД</a>
+            <a class="nav-link rounded-2 p-2 text-dark" href="/all_analyzed">Все анализируемые</a>
+            <a class="nav-link rounded-2 p-2 text-dark" href="/vk_osint">Нарушители ВК</a>
+            <a class="nav-link rounded-2 p-2 text-dark" href="/ok_osint">Нарушители ОК</a>
+            <a class="nav-link rounded-2 p-2 text-dark" href="/upload_report">Выгрузить для доклада</a>
+            <a class="nav-link rounded-2 p-2 text-dark" href="/violators">Нарушители</a>
+            <a class="btn btn-warning" href="/task_create">Создать задачу</a>
+        </nav>
+    </header>
+    {% block body %}{% endblock %}
+</body>
+</html>

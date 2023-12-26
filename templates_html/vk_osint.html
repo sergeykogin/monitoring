@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Профили ВК
+{% endblock %}
+
+{% block body %}
+    <script type="text/javascript" language="javascript">
+    $.fn.dataTable.ext.search.push(
+    function( settings, data, dataIndex ) {
+        var from_date = Date.parse( $('#from_date').val());
+        var age = Date.parse( data[0] ) || 0; // use data for the age column
+        if ( ( isNaN( from_date ) ) || (from_date <= age) )
+        {
+            return true;
+        }
+        return false;
+    }
+);
+    </script>
+
+    <script type="text/javascript" language="javascript">
+    $(document).ready(function() {
+    var table = $("#dt-table").DataTable({"columnDefs": [
+            {
+                "targets": [ 0 ],
+                "visible": false
+            }]});
+    $('#from_date').change( function() {
+    table.draw();
+    } );
+} );
+    </script>
+<div class="container mt-5">
+<h1>Анализ профилей в ВК</h1>
+    <br>
+<form name='resetLayoutForm' method='POST' enctype="multipart/form-data">
+
+  <tbody><tr>
+            <td>С даты:</td>
+            <td><input type="date" id="from_date" name="from_date"></td>
+        </tr>
+           </tbody>
+  <p>
+  <table id="dt-table" class="display">
+    <thead>
+      <tr>
+        <th>Дата добавления в БД</th>
+        <th>Личный номер</th>
+        <th>Фамилия</th>
+        <th>Имя</th>
+        <th>Дата прибытия</th>
+        <th>Ссылка</th>
+        <th>Дата посещения страницы</th>
+        <th>Нарушение</th>
+        <th>Действие</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for el in t.values() %}
+      <tr>
+        <td>{{el['arrival_date']}}</td>
+        <td>{{el['self_number']}}</td>
+        <td>{{el['surname']}}</td>
+        <td>{{el['name']}}</td>
+        <td>{{el['arrival_date']}}</td>
+        <td><a href="{{el['link']}}" target="_blank">{{el['link']}}</a></td>
+        <td>{{el.date_of_visit}}</td>
+        <td><input type="text" list="punishment" name="{{el.id2}}" class="form-control" value="{{el.violation_category}}">
+        <datalist id="punishment">
+    <option value="нет">
+    <option value="фото в форме">
+    <option value="информация о принадлежности">
+    <option value="использование личного технического средства">
+  </datalist>
+        </td>
+        <td><input type="submit" name="btn" class="btn btn-success" value="{{el.id1}}"></td>
+          </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+          <input type="submit" name="btn" class="btn btn-success" value="Сохранить изменения">
+    </form>
+    </div>
+{% endblock %}

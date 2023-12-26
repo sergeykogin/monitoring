@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Нарушители
+{% endblock %}
+
+{% block body %}
+    <script type="text/javascript" language="javascript">
+    $(document).ready(function() {
+    $("#dt-table").DataTable();
+    } );
+    </script>
+<div class="container mt-5">
+<h1>Нарушители</h1>
+  <br>
+<form name='resetLayoutForm' method='POST' enctype="multipart/form-data">
+
+  <table id="dt-table" class="display">
+    <thead>
+      <tr>
+        <th>Личный номер</th>
+        <th>Фамилия</th>
+        <th>Имя</th>
+        <th>Дата прибытия</th>
+        <th>Нарушение ВК</th>
+        <th>Нарушение ОК</th>
+        <th>Наказание</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for el in ls %}
+      <tr>
+        <td>{{el.self_number}}</td>
+        <td>{{el.surname}}</td>
+        <td>{{el.name}}</td>
+        <td>{{el.arrival_date}}</td>
+        <td>{{el.violation_category_vk}}</td>
+        <td>{{el.violation_category_ok}}</td>
+        <td><input type="text" list="punishment" name="{{el.id}}" class="form-control" value="{{el.punishment}}">
+        <datalist id="punishment">
+    <option value="нет">
+    <option value="выговор">
+    <option value="строгий выговор">
+    <option value="материалы направлены в ППД">
+    <option value="приказано удалить страницу (указано на недопустимость подобных нарушений)">
+  </datalist>
+                  </td>
+                  </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+          <input type="submit" name="btn" class="btn btn-success" value="Сохранить изменения">
+    </form>
+  </div>
+{% endblock %}

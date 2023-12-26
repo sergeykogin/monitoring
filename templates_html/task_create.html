@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Нарушители
+{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <h1>Создание задач</h1>
+    <form method="post">
+        <input type="text" name="task" id="task" class="form-control" placeholder="Введите задачу"><br>
+        <textarea name="text" id="text" class="form-control" placeholder="Введите описание задачи"></textarea><br>
+        <label for="date">Когда начать задачу</label>
+        <input type="date" name="date" id="date" class="form-control"><br>
+        <input type="checkbox" id="cycle" name="cycle" value="True">
+        <label for="cycle">Цикличность</label>
+        <div id="period" style="display: none">
+        <label>Периодичность: </label>
+        <select name="cycle_period">
+            <option value="1">День</option>
+            <option value="2">Неделя</option>
+            <option value="3">Месяц</option>
+        </select>
+        </div>
+        <br>
+        <input type="submit" class="btn btn-success" value="отправить">
+    </form>
+</div>
+<script>
+$('#cycle').click(function(){
+	if ($(this).is(':checked')){
+		$('#period').show(100);
+	} else {
+		$('#period').hide(100);
+	}
+});
+</script>
+{% endblock %}

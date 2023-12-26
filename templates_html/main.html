@@ -1,0 +1,224 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Главная
+{% endblock %}
+
+{% block body %}
+<head>
+<!--<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>-->
+</head>
+    <div class="container-fluid p-3 my-3 text-white">
+        <div class="header-body">
+            <div class="row">
+                <div class="col-md-6 col-xl-4">
+                    <div class="card text-white bg-success mb-3" show-footer-line="true"><!----><!----><!---->
+                        <div class="card-body"><!----><!---->
+                            <div class="row">
+                                <div class="col">
+                                    <center>
+                                    <h5 class="card-title text-uppercase mb-0">Людей в базе данных</h5>
+                                    <span class="h1 font-weight-bold mb-0">{{all}}</span>
+                                    </center>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                <div class="col-md-6 col-xl-4">
+                    <div class="card text-white bg-warning mb-3" show-footer-line="true"><!----><!----><!---->
+                        <div class="card-body"><!----><!---->
+                            <div class="row">
+                                <div class="col">
+                                    <center>
+                                    <h5 class="card-title text-uppercase mb-0">Выявлено нарушителей в ОК</h5>
+                                    <span class="h1 font-weight-bold mb-0">{{ok}}</span>
+                                    </center>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                <div class="col-md-6 col-xl-4">
+                    <div class="card text-white bg-info mb-3" show-footer-line="true"><!----><!----><!---->
+                        <div class="card-body"><!----><!---->
+                            <div class="row">
+                                <div class="col">
+                                    <center>
+                                    <h5 class="card-title text-uppercase mb-0">Выявлено нарушителей в ВК</h5>
+                                    <span class="h1 font-weight-bold mb-0">{{vk}}</span>
+                                    </center>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+            </div>
+        </div>
+    </div>
+<!-- Неиспользуемая часть
+<div class="container-fluid">
+<div class="row justify-content-md-center">
+<div class="col-md-6 col-xl-3">
+    <center><h3>Выявленные нарушения</h3></center>
+        <canvas id="myChart1" width="500" height="400"></canvas>
+</div>
+<div class="col-md-6 col-xl-3">
+    <center><h3>Дисциплинарная практика</h3></center>
+        <canvas id="myChart2" width="500" height="400"></canvas>
+</div>
+<div class="col-md-6 col-xl-3">
+    <center><h3>Нарушители по округам</h3></center>
+        <canvas id="myChart3" width="500" height="400"></canvas>
+</div>
+</div>
+</div>
+<div class="container mt-5">
+    {% for el in tasks %}
+    <div class="alert alert-info">
+        <h2>{{el.task}}</h2>
+        <p>{{el.text}}</p>
+        <a href="/delete/{{el.id}}" class="btn btn-success">Завершить</a>
+    </div>
+    {% endfor %}
+</div>
+-->
+<!--не используется на текущий момент
+<script>
+Chart.defaults.global.legend.display = false;
+Chart.defaults.global.defaultFontSize = 18;
+var ctx = document.getElementById('myChart1').getContext('2d');
+var myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: ['Фото в форме', 'Использование личного ТС', 'Информация о принадлежности'],
+        datasets: [{
+            label: '',
+            data: [{{photo}}, {{ts}}, {{inf}}],
+            backgroundColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+    legend: {
+      display: false
+    },
+        scales: {
+        xAxes: [{
+                ticks: {
+                    display: false
+                }
+            }],
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true
+                }
+            }]
+        }
+    }
+});
+var ctx = document.getElementById('myChart2').getContext('2d');
+var myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: ['Строгий выговор', 'Выговор', 'Материалы направлены в ППД', 'Приказано удалить страницу'],
+        datasets: [{
+            label: '',
+            data: [{{strict}}, {{rebuke}}, {{ppd}}, {{ukaz}}],
+            backgroundColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+    legend: {
+      display: false
+    },
+        scales: {
+        xAxes: [{
+                ticks: {
+                    display: false
+                }
+            }],
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true
+                }
+            }]
+        }
+    }
+});
+var ctx = document.getElementById('myChart3').getContext('2d');
+var DoughnutChart = new Chart(ctx, {
+    type: 'doughnut',
+    data: {
+        labels: ['ВВО', 'ВДВ', 'ВКС', 'ВУЗ', 'ЗВО', 'СФ', 'ЦВО', 'ЦОВУ', 'ЮВО'],
+        datasets: [{
+            label: '',
+            data: [{{vvo}}, {{vdv}}, {{vks}}, {{vuz}}, {{zvo}}, {{sf}}, {{cvo}}, {{covu}}, {{uvo}}],
+            backgroundColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)',
+                'rgba(141, 182, 0, 1)',
+                'rgba(254, 111, 94, 1)',
+                'rgba(255, 253, 208, 1)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)',
+                'rgba(141, 182, 0, 1)',
+                'rgba(254, 111, 94, 1)',
+                'rgba(255, 253, 208, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+    legend: {
+      display: false
+    },
+        scales: {
+        xAxes: [{
+                ticks: {
+                    display: false
+                }
+            }],
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true
+                }
+            }]
+        }
+    }
+});
+</script>
+-->
+
+{% endblock %}
